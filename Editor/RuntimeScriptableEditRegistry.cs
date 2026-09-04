@@ -152,17 +152,22 @@ namespace BaranKoc.RuntimeScriptableEdit
 
             activeProfile = profile;
 
-            foreach (var asset in profile.tunableAssets)
+            // Empty and duplicated rows are a normal authoring state, because the inspector's
+            // "+" button produces both. They are skipped here rather than stripped from the
+            // profile, so the list the user typed is the list they get back.
+            for (int i = 0; i < profile.tunableAssets.Count; i++)
             {
+                ScriptableObject asset = profile.tunableAssets[i];
+
                 if (asset == null)
                 {
-                    Debug.LogWarning("Skipping null asset in scriptable edit profile");
+                    Debug.LogWarning($"[Runtime Scriptable Edit] Profile '{profile.name}' has an empty entry at element {i}. Skipping it.", profile);
                     continue;
                 }
 
                 if (registry.ContainsKey(asset))
                 {
-                    Debug.LogWarning($"Asset already registered: {asset.name}");
+                    Debug.LogWarning($"[Runtime Scriptable Edit] Profile '{profile.name}' lists '{asset.name}' more than once. Only the first entry is tunable.", profile);
                     continue;
                 }
 

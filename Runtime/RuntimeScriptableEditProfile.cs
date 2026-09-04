@@ -14,29 +14,11 @@ namespace BaranKoc.RuntimeScriptableEdit
         [Tooltip("Automatically re-patch references when new objects are instantiated")]
         public bool autoRepatchOnInstantiate = true;
 
-        public void OnValidate()
-        {
-            if (tunableAssets == null) return;
-
-            HashSet<ScriptableObject> seen = new HashSet<ScriptableObject>();
-            for (int i = tunableAssets.Count - 1; i >= 0; i--)
-            {
-                if (tunableAssets[i] == null)
-                {
-                    tunableAssets.RemoveAt(i);
-                    continue;
-                }
-
-                if (seen.Contains(tunableAssets[i]))
-                {
-                    Debug.LogWarning($"Duplicate asset found in RuntimeScriptableEditProfile: {tunableAssets[i].name}. Removing duplicate.");
-                    tunableAssets.RemoveAt(i);
-                }
-                else
-                {
-                    seen.Add(tunableAssets[i]);
-                }
-            }
-        }
+        // No OnValidate stripping of nulls or duplicates. Unity's list "+" button adds an
+        // empty slot on an empty list, and clones the last element on a populated one, so
+        // stripping either on validate deleted the new row the moment it appeared and made
+        // "+" do nothing. Both cases are handled without side effects where they matter, in
+        // RuntimeScriptableEditRegistry.Initialize, which skips them and warns once on entry
+        // to play mode.
     }
 }
