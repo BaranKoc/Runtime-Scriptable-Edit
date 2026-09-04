@@ -1,0 +1,16 @@
+{
+    "name": "BaranKoc.RuntimeScriptableEdit.Demo",
+    "rootNamespace": "BaranKoc.RuntimeScriptableEdit.Demo",
+    "references": [
+        "BaranKoc.RuntimeScriptableEdit"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
