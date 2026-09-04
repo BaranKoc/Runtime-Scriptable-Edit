@@ -1,2 +1,9 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# The shipped documentation must round-trip byte for byte. Left to "text=auto" git only
+# skips normalization because it happens to find NUL bytes, which is a detection result
+# rather than a guarantee.
+*.pdf binary
+*.docx binary
+*.unitypackage binary
